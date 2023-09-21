@@ -12,5 +12,4 @@ public class ApiApplication {
 		Object dataSource = context.getBean("dataSource");
 		System.out.println(dataSource);
 	}
-
 }
