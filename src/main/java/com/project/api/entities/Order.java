@@ -1,6 +1,7 @@
 package com.project.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.api.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -17,6 +18,8 @@ public class Order implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private Integer status;
+
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
   private Instant createdAt;
 
@@ -26,8 +29,9 @@ public class Order implements Serializable {
 
   public Order() {}
 
-  public Order(Long id, Instant createdAt, User client) {
+  public Order(Long id, OrderStatus status, Instant createdAt, User client) {
     this.id = id;
+    setStatus(status);
     this.createdAt = createdAt;
     this.client = client;
   }
@@ -46,6 +50,16 @@ public class Order implements Serializable {
 
   public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public OrderStatus getStatus() {
+    return OrderStatus.valueOf(status);
+  }
+
+  public void setStatus(OrderStatus status) {
+    if (status != null) {
+      this.status = status.getCode();
+    }
   }
 
   public User getClient() {

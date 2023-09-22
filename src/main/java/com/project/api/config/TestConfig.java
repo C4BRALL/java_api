@@ -2,6 +2,7 @@ package com.project.api.config;
 
 import com.project.api.entities.Order;
 import com.project.api.entities.User;
+import com.project.api.entities.enums.OrderStatus;
 import com.project.api.repositories.OrderRepository;
 import com.project.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class TestConfig implements CommandLineRunner {
     User u1 = new User(null, "Maria Brown", "maria@email.com", "85986198071", "passwordteste");
     User u2 = new User(null, "Alex Green", "alex@email.com", "85987208182", "passwordteste");
 
-    Order o1 = new Order(null, Instant.parse("2023-09-21T19:53:07Z"), u1);
-    Order o2 = new Order(null, Instant.parse("2023-09-21T20:00:10Z"), u1);
-    Order o3 = new Order(null, Instant.parse("2019-09-21T19:53:22Z"), u2);
+    Order o1 = new Order(null, OrderStatus.PENDING_PAYMENT, Instant.parse("2023-09-21T19:53:07Z"), u1);
+    Order o2 = new Order(null, OrderStatus.SHIPPED, Instant.parse("2023-09-21T20:00:10Z"), u1);
+    Order o3 = new Order(null, OrderStatus.DELIVERED, Instant.parse("2019-09-21T19:53:22Z"), u2);
 
     userRepository.saveAll(Arrays.asList(u1, u2));
     orderRepository.saveAll(Arrays.asList(o1, o2, o3));
